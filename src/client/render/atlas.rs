@@ -268,7 +268,7 @@ impl TextureAtlasBuilder {
             sample_count: 1,
             dimension: wgpu::TextureDimension::D2,
             format: wgpu::TextureFormat::Rgba8UnormSrgb,
-            usage: wgpu::TextureUsage::NONE,
+            usage: wgpu::TextureUsages::NONE,
         });
         let mut encoder =
             device.create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });

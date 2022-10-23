@@ -42,7 +42,7 @@ lazy_static! {
         vec![
             wgpu::BindGroupLayoutEntry {
                 binding:0,
-                visibility:wgpu::ShaderStage::all(),
+                visibility:wgpu::ShaderStages,
                 ty:wgpu::BindingType::Buffer {
                     ty: wgpu::BufferBindingType::Uniform,
                     has_dynamic_offset: false,

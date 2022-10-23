@@ -16,8 +16,11 @@ use crate::{
     common::{math::Angles, util::any_slice_as_bytes},
 };
 
+use crate::Naga::{Compiler};
+
 use bumpalo::Bump;
 use cgmath::Matrix4;
+
 
 lazy_static! {
     static ref VERTEX_BUFFER_ATTRIBUTES: [Vec<wgpu::VertexAttribute>; 1] = [
@@ -56,7 +59,7 @@ impl ParticlePipeline {
     pub fn new(
         device: &wgpu::Device,
         queue: &wgpu::Queue,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
         palette: &Palette,
     ) -> ParticlePipeline {
@@ -145,7 +148,7 @@ impl ParticlePipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) {
         let layout_refs: Vec<_> = self.bind_group_layouts.iter().collect();

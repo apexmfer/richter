@@ -55,6 +55,8 @@ mod uniform;
 mod warp;
 mod world;
 
+super crate::Naga::{Compiler};
+
 pub use cvars::register_cvars;
 pub use error::{RenderError, RenderErrorKind};
 pub use palette::Palette;
@@ -139,7 +141,7 @@ pub fn texture_descriptor<'a>(
         sample_count: 1,
         dimension: wgpu::TextureDimension::D2,
         format,
-        usage: wgpu::TextureUsage::COPY_DST | wgpu::TextureUsage::SAMPLED,
+        usage: wgpu::TextureUsages::COPY_DST | wgpu::TextureUsages::SAMPLED,
     }
 }
 
@@ -286,7 +288,7 @@ pub struct GraphicsState {
     vfs: Rc<Vfs>,
     palette: Palette,
     gfx_wad: Wad,
-    compiler: RefCell<shaderc::Compiler>,
+    compiler: RefCell<Compiler>,
 }
 
 impl GraphicsState {
@@ -299,7 +301,7 @@ impl GraphicsState {
     ) -> Result<GraphicsState, Error> {
         let palette = Palette::load(&vfs, "gfx/palette.lmp");
         let gfx_wad = Wad::load(vfs.open("gfx.wad")?).unwrap();
-        let mut compiler = shaderc::Compiler::new().unwrap();
+        let mut compiler = Compiler::new().unwrap();
 
         let initial_pass_target = InitialPassTarget::new(&device, size, sample_count);
         let deferred_pass_target = DeferredPassTarget::new(&device, size, sample_count);

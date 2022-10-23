@@ -1,4 +1,5 @@
 use crate::client::render::{pipeline::Pipeline, ui::quad::QuadPipeline, GraphicsState};
+use crate::Naga::{Compiler};
 
 pub struct BlitPipeline {
     pipeline: wgpu::RenderPipeline,
@@ -32,7 +33,7 @@ impl BlitPipeline {
 
     pub fn new(
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         input: &wgpu::TextureView,
     ) -> BlitPipeline {
         let (pipeline, bind_group_layouts) = BlitPipeline::create(device, compiler, &[], 1);
@@ -65,7 +66,7 @@ impl BlitPipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         input: &wgpu::TextureView,
     ) {
         let layout_refs: Vec<_> = self.bind_group_layouts.iter().collect();

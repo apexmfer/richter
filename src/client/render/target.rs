@@ -32,7 +32,7 @@ pub fn create_color_attachment(
     device: &wgpu::Device,
     size: Extent2d,
     sample_count: u32,
-    usage: wgpu::TextureUsage,
+    usage: wgpu::TextureUsages,
 ) -> wgpu::Texture {
     device.create_texture(&wgpu::TextureDescriptor {
         label: Some("color attachment"),
@@ -53,7 +53,7 @@ pub fn create_normal_attachment(
     device: &wgpu::Device,
     size: Extent2d,
     sample_count: u32,
-    usage: wgpu::TextureUsage,
+    usage: wgpu::TextureUsages,
 ) -> wgpu::Texture {
     device.create_texture(&wgpu::TextureDescriptor {
         label: Some("normal attachment"),
@@ -74,7 +74,7 @@ pub fn create_light_attachment(
     device: &wgpu::Device,
     size: Extent2d,
     sample_count: u32,
-    usage: wgpu::TextureUsage,
+    usage: wgpu::TextureUsages,
 ) -> wgpu::Texture {
     device.create_texture(&wgpu::TextureDescriptor {
         label: Some("light attachment"),
@@ -95,7 +95,7 @@ pub fn create_depth_attachment(
     device: &wgpu::Device,
     size: Extent2d,
     sample_count: u32,
-    usage: wgpu::TextureUsage,
+    usage: wgpu::TextureUsages,
 ) -> wgpu::Texture {
     device.create_texture(&wgpu::TextureDescriptor {
         label: Some("depth attachment"),
@@ -158,13 +158,13 @@ pub struct InitialPassTarget {
 impl InitialPassTarget {
     pub fn new(device: &wgpu::Device, size: Extent2d, sample_count: u32) -> InitialPassTarget {
         let diffuse_attachment =
-            create_color_attachment(device, size, sample_count, wgpu::TextureUsage::SAMPLED);
+            create_color_attachment(device, size, sample_count, wgpu::TextureUsages::SAMPLED);
         let normal_attachment =
-            create_normal_attachment(device, size, sample_count, wgpu::TextureUsage::SAMPLED);
+            create_normal_attachment(device, size, sample_count, wgpu::TextureUsages::SAMPLED);
         let light_attachment =
-            create_light_attachment(device, size, sample_count, wgpu::TextureUsage::SAMPLED);
+            create_light_attachment(device, size, sample_count, wgpu::TextureUsages::SAMPLED);
         let depth_attachment =
-            create_depth_attachment(device, size, sample_count, wgpu::TextureUsage::SAMPLED);
+            create_depth_attachment(device, size, sample_count, wgpu::TextureUsages::SAMPLED);
 
         let diffuse_view = diffuse_attachment.create_view(&Default::default());
         let normal_view = normal_attachment.create_view(&Default::default());
@@ -277,7 +277,7 @@ pub struct DeferredPassTarget {
 impl DeferredPassTarget {
     pub fn new(device: &wgpu::Device, size: Extent2d, sample_count: u32) -> DeferredPassTarget {
         let color_attachment =
-            create_color_attachment(device, size, sample_count, wgpu::TextureUsage::SAMPLED);
+            create_color_attachment(device, size, sample_count, wgpu::TextureUsages::SAMPLED);
         let color_view = color_attachment.create_view(&Default::default());
 
         DeferredPassTarget {
@@ -333,7 +333,7 @@ pub struct FinalPassTarget {
 impl FinalPassTarget {
     pub fn new(device: &wgpu::Device, size: Extent2d, sample_count: u32) -> FinalPassTarget {
         let color_attachment =
-            create_color_attachment(device, size, sample_count, wgpu::TextureUsage::empty());
+            create_color_attachment(device, size, sample_count, wgpu::TextureUsages::empty());
         let color_view = color_attachment.create_view(&Default::default());
         // add COPY_SRC so we can copy to a buffer for capture and SAMPLED so we
         // can blit to the swap chain
@@ -341,7 +341,7 @@ impl FinalPassTarget {
             device,
             size,
             1,
-            wgpu::TextureUsage::COPY_SRC | wgpu::TextureUsage::SAMPLED,
+            wgpu::TextureUsages::COPY_SRC | wgpu::TextureUsages::SAMPLED,
         );
         let resolve_view = resolve_attachment.create_view(&Default::default());
 

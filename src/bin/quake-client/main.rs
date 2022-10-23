@@ -138,7 +138,7 @@ impl ClientProgram {
         let swap_chain = RefCell::new(device.create_swap_chain(
             &surface,
             &wgpu::SwapChainDescriptor {
-                usage: wgpu::TextureUsage::RENDER_ATTACHMENT,
+                usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
                 format: DIFFUSE_ATTACHMENT_FORMAT,
                 width: size.width,
                 height: size.height,
@@ -224,7 +224,7 @@ impl ClientProgram {
         let swap_chain = self.gfx_state.borrow().device().create_swap_chain(
             &self.surface,
             &wgpu::SwapChainDescriptor {
-                usage: wgpu::TextureUsage::RENDER_ATTACHMENT,
+                usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
                 format: DIFFUSE_ATTACHMENT_FORMAT,
                 width,
                 height,

@@ -15,6 +15,7 @@ use crate::{
     },
     common::{util::any_slice_as_bytes, wad::QPic},
 };
+use crate::Naga::{Compiler}
 
 use cgmath::Matrix4;
 
@@ -112,7 +113,7 @@ impl QuadPipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) {
         let layout_refs = self.bind_group_layouts.iter().collect::<Vec<_>>();
@@ -181,7 +182,7 @@ const BIND_GROUP_LAYOUT_ENTRIES: &[&[wgpu::BindGroupLayoutEntry]] = &[
         // TODO: move to push constants once they're exposed in wgpu
         wgpu::BindGroupLayoutEntry {
             binding: 0,
-            visibility: wgpu::ShaderStage::all(),
+            visibility: wgpu::ShaderStages,
             ty: wgpu::BindingType::Buffer {
                 ty: wgpu::BufferBindingType::Uniform,
                 has_dynamic_offset: true,

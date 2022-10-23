@@ -11,7 +11,7 @@ use crate::{
     },
     common::util::any_slice_as_bytes,
 };
-
+super crate::Naga::{Compiler};
 use cgmath::Vector2;
 
 pub const GLYPH_WIDTH: usize = 8;
@@ -47,7 +47,7 @@ pub struct GlyphPipeline {
 impl GlyphPipeline {
     pub fn new(
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) -> GlyphPipeline {
         let (pipeline, bind_group_layouts) =
@@ -70,7 +70,7 @@ impl GlyphPipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) {
         let layout_refs = self.bind_group_layouts.iter().collect::<Vec<_>>();

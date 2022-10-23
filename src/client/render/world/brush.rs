@@ -45,6 +45,8 @@ use crate::{
     },
 };
 
+use crate::Naga::{Compiler};
+
 use bumpalo::Bump;
 use cgmath::{InnerSpace as _, Matrix4, Vector3};
 use chrono::Duration;
@@ -59,7 +61,7 @@ impl BrushPipeline {
     pub fn new(
         device: &wgpu::Device,
         queue: &wgpu::Queue,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         world_bind_group_layouts: &[wgpu::BindGroupLayout],
         sample_count: u32,
     ) -> BrushPipeline {
@@ -76,7 +78,7 @@ impl BrushPipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         world_bind_group_layouts: &[wgpu::BindGroupLayout],
         sample_count: u32,
     ) {

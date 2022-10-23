@@ -15,7 +15,7 @@ use crate::{
     },
     common::{util::any_slice_as_bytes, wad::QPic},
 };
-use crate::Naga::{Compiler}
+use crate::Naga::{Compiler};
 
 use cgmath::Matrix4;
 
@@ -85,7 +85,7 @@ pub struct QuadPipeline {
 impl QuadPipeline {
     pub fn new(
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) -> QuadPipeline {
         let (pipeline, bind_group_layouts) =

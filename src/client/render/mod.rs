@@ -55,7 +55,6 @@ mod uniform;
 mod warp;
 mod world;
 
-super crate::Naga::{Compiler};
 
 pub use cvars::register_cvars;
 pub use error::{RenderError, RenderErrorKind};
@@ -76,6 +75,8 @@ use std::{
     num::{NonZeroU32, NonZeroU64, NonZeroU8},
     rc::Rc,
 };
+
+use crate::Naga::{Compiler};
 
 use crate::{
     client::{

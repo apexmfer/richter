@@ -11,6 +11,8 @@ use crate::{
     },
 };
 
+use crate::Naga::{Compiler};
+
 use cgmath::{InnerSpace as _, Matrix4, Vector3, Zero as _};
 use chrono::Duration;
 use failure::Error;
@@ -23,7 +25,7 @@ pub struct AliasPipeline {
 impl AliasPipeline {
     pub fn new(
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         world_bind_group_layouts: &[wgpu::BindGroupLayout],
         sample_count: u32,
     ) -> AliasPipeline {
@@ -39,7 +41,7 @@ impl AliasPipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         world_bind_group_layouts: &[wgpu::BindGroupLayout],
         sample_count: u32,
     ) {

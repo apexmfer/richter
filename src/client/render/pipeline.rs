@@ -22,7 +22,7 @@ use std::mem::size_of;
 
 use crate::common::util::{any_as_bytes, Pod};
 
-use crate::Naga::{Compiler}
+use crate::Naga::{Compiler,ShaderKind};
 
 /// The `Pipeline` trait, which allows render pipelines to be defined more-or-less declaratively.
 
@@ -30,7 +30,7 @@ fn create_shader<S>(
     device: &wgpu::Device,
     compiler: &mut Compiler,
     name: S,
-    kind: naga::ShaderKind,
+    kind: ShaderKind,
     source: S,
 ) -> wgpu::ShaderModule
 where
@@ -172,7 +172,7 @@ pub trait Pipeline {
     /// `RenderPipeline`. This permits the reuse of `BindGroupLayout`s between pipelines.
     fn create(
         device: &wgpu::Device,
-        compiler: &mut naga::Compiler,
+        compiler: &mut Compiler,
         bind_group_layout_prefix: &[wgpu::BindGroupLayout],
         sample_count: u32,
     ) -> (wgpu::RenderPipeline, Vec<wgpu::BindGroupLayout>) {
@@ -210,14 +210,14 @@ pub trait Pipeline {
             device,
             compiler,
             format!("{}.vert", Self::name()).as_str(),
-            naga::ShaderKind::Vertex,
+            ShaderKind::Vertex,
             Self::vertex_shader(),
         );
         let fragment_shader = create_shader(
             device,
             compiler,
             format!("{}.frag", Self::name()).as_str(),
-            naga::ShaderKind::Fragment,
+            ShaderKind::Fragment,
             Self::fragment_shader(),
         );
 

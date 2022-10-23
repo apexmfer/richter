@@ -5,6 +5,11 @@ use crate::{
     common::util::any_as_bytes,
 };
 
+
+
+
+use crate::Naga::{Compiler};
+
 #[repr(C, align(256))]
 #[derive(Clone, Copy, Debug)]
 pub struct PostProcessUniforms {
@@ -20,7 +25,7 @@ pub struct PostProcessPipeline {
 impl PostProcessPipeline {
     pub fn new(
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) -> PostProcessPipeline {
         let (pipeline, bind_group_layouts) =
@@ -46,7 +51,7 @@ impl PostProcessPipeline {
     pub fn rebuild(
         &mut self,
         device: &wgpu::Device,
-        compiler: &mut shaderc::Compiler,
+        compiler: &mut Compiler,
         sample_count: u32,
     ) {
         let layout_refs: Vec<_> = self.bind_group_layouts.iter().collect();

@@ -37,6 +37,7 @@ extern crate rand;
 extern crate regex;
 extern crate rodio;
 extern crate winit;
+extern crate naga;
 
 pub mod client;
 pub mod common;
